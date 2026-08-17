@@ -107,6 +107,36 @@
   .sp-card.sp3 .sp-icon{background:linear-gradient(135deg,#8B5CF6,#A78BFA);color:#fff}
   .sp-card.sp3 .sp-name{color:var(--purple)}
 
+  /* ===== VS对比板块 ===== */
+  .vs-container{display:flex;flex-direction:column;gap:0}
+  .vs-card{border-radius:var(--radius-3);padding:18px 16px;position:relative;overflow:hidden}
+  .vs-card-good{background:linear-gradient(135deg,#E8F8EE 0%,#D4F0DD 100%);border:1.5px solid #4CAF50;margin-bottom:0}
+  .vs-card-bad{background:linear-gradient(135deg,#FFF3E0 0%,#FFE0B2 100%);border:1.5px solid #FF9800}
+  .vs-badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:11px;font-weight:700;margin-bottom:10px}
+  .vs-card-good .vs-badge{background:#4CAF50;color:#fff}
+  .vs-card-bad .vs-badge{background:#FF9800;color:#fff}
+  .vs-card-title{font-size:15px;font-weight:800;margin-bottom:12px}
+  .vs-card-good .vs-card-title{color:#2E7D32}
+  .vs-card-bad .vs-card-title{color:#E65100}
+  .vs-feature{font-size:12px;font-weight:700;margin-bottom:8px;padding:8px 12px;border-radius:8px;background:rgba(255,255,255,.75);color:#1B5E20}
+  .vs-desc{font-size:11.5px;line-height:1.6;margin:0 0 10px;color:#1B5E20}
+  .vs-desc b{color:#2E7D32}
+  .vs-list{list-style:none;padding:0;margin:0}
+  .vs-list li{font-size:11.5px;line-height:1.55;padding:5px 0 5px 24px;position:relative}
+  .vs-card-good .vs-list li::before{content:"✅";position:absolute;left:0;top:4px;font-size:12px}
+  .vs-card-bad .vs-list li::before{content:"❌";position:absolute;left:0;top:4px;font-size:12px}
+  .vs-card-bad .vs-list li{color:#BF360C}
+  .vs-divider{text-align:center;font-size:22px;font-weight:900;color:var(--text-3);margin:6px 0;letter-spacing:2px}
+
+  /* ===== 办理核心用处 ===== */
+  .usage-list{display:flex;flex-direction:column;gap:10px}
+  .usage-item{display:flex;gap:12px;padding:14px;border-radius:var(--radius-2);background:#FAFAFC;border:1px solid #EEF0F4;transition:transform .2s}
+  .usage-item:active{transform:scale(.98)}
+  .usage-num{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#1E6FFF,#4F9DFF);color:#fff;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .usage-body{flex:1}
+  .usage-body h4{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--text-1)}
+  .usage-body p{font-size:12px;line-height:1.6;color:var(--text-2)}
+
   /* ===== 5G专网提示条 ===== */
   .g5-banner{display:flex;align-items:center;gap:10px;padding:12px 14px;margin-bottom:14px;border-radius:var(--radius-2);background:linear-gradient(135deg,#E8F1FF,#F0F7FF);border:1px solid #D1E4FF}
   .g5-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1E6FFF,#0A4FD6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800;flex-shrink:0}
@@ -466,6 +496,96 @@
         <div class="sp-icon">🎁</div>
         <div class="sp-name">会员福利</div>
         <div class="sp-desc">每月送视频会员<br>追剧听歌全免费</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VS对比板块 ===== -->
+  <section class="section fade-up">
+    <div class="section-head">
+      <div class="section-title"><span class="icon">⚔️</span>校园电话卡 VS 普通流量卡</div>
+    </div>
+    <div class="vs-container">
+      <!-- 绿色卡片：移动校园卡 -->
+      <div class="vs-card vs-card-good">
+        <span class="vs-badge">✨ 推荐选择</span>
+        <div class="vs-card-title">📱 移动校园电话卡（学生专属套餐）</div>
+        <div class="vs-feature">🏆 核心独家特权：5G双域专网</div>
+        <p class="vs-desc">无需连接校园WiFi、无需登录WebVPN，手机流量可直接<b>免费直通西南民族大学校内内网</b>及所有校内官方系统，手机开热点连接电脑也可正常使用，在校内、校外、寒暑假离校状态下，均可无障碍畅用校内资源。</p>
+        <p class="vs-desc">可直通校内系统，实现学生全刚需功能：<b>在线选课、查询考试分数、查看每日课表、提交综测材料、上报各类校园材料、下载学校官方学习资料、申请助学金/奖学金</b>等所有教务办公操作。</p>
+        <ul class="vs-list">
+          <li>独享校区专属大流量，宿舍高峰期上网稳定不卡顿</li>
+          <li>免费赠送宿舍不限速宽带，支持电脑插网线使用</li>
+          <li>校内短号互打免费，全国通话时长充足</li>
+          <li>每月可免费领取视频、音乐等各类会员福利</li>
+          <li>四年专属优惠合约，大学在校全程享受低价套餐</li>
+        </ul>
+      </div>
+      <div class="vs-divider">VS</div>
+      <!-- 橙色卡片：普通流量卡 -->
+      <div class="vs-card vs-card-bad">
+        <span class="vs-badge">⚠️ 不推荐</span>
+        <div class="vs-card-title">📵 普通流量卡 / 网上物联卡 / 社会通用套餐</div>
+        <ul class="vs-list">
+          <li>不支持5G双域专网，无法直接访问学校内网及校内教务系统</li>
+          <li>校外想要选课、查成绩、提交校园材料，必须繁琐登录VPN，网速卡顿、频繁掉线，极易操作失败</li>
+          <li>无校区专属流量，宿舍晚间上网高峰期拥挤卡顿严重</li>
+          <li>不赠送校园宽带，宿舍电脑使用宽带需单独付费办理</li>
+          <li>多数物联卡无法接打电话、接收短信，不能绑定校园及支付账号，安全性、稳定性极差</li>
+          <li>无任何学生专属福利，易出现流量虚标、限速、无故停机问题</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 办理核心用处（新生必看）===== -->
+  <section class="section fade-up">
+    <div class="section-head">
+      <div class="section-title"><span class="icon">📌</span>办理移动校园卡的核心用处</div>
+      <div class="section-tag">新生必看</div>
+    </div>
+    <div class="usage-list">
+      <div class="usage-item">
+        <div class="usage-num">1</div>
+        <div class="usage-body">
+          <h4>独家5G双域专网，学习办公不受限制</h4>
+          <p>全网唯一可免VPN直通西南民大校内系统的学生套餐，随时随地用手机流量完成选课、查分、看课表、综测上报、材料提交、下载学习资料、助学金申请等刚需操作，离校在家也能正常使用校内资源。</p>
+        </div>
+      </div>
+      <div class="usage-item">
+        <div class="usage-num">2</div>
+        <div class="usage-body">
+          <h4>校内网速稳定流畅</h4>
+          <p>独享校园专属基站资源，教室、宿舍、图书馆全场景上网流畅，上网课、刷视频、做设计、调试网页均不卡顿。</p>
+        </div>
+      </div>
+      <div class="usage-item">
+        <div class="usage-num">3</div>
+        <div class="usage-body">
+          <h4>免费宿舍不限速宽带</h4>
+          <p>适配台式电脑使用，满足大型文件下载、网络游戏、专业设计等需求，无需额外花钱开通宽带。</p>
+        </div>
+      </div>
+      <div class="usage-item">
+        <div class="usage-num">4</div>
+        <div class="usage-body">
+          <h4>校内通话零成本</h4>
+          <p>开通校园短号，本校师生、同学之间互打免费，日常沟通无话费压力。</p>
+        </div>
+      </div>
+      <div class="usage-item">
+        <div class="usage-num">5</div>
+        <div class="usage-body">
+          <h4>专属学生福利多多</h4>
+          <p>每月可自选视频、音乐、学习类会员，免费享受追剧、听歌、学习权益，节省日常开销。</p>
+        </div>
+      </div>
+      <div class="usage-item">
+        <div class="usage-num">6</div>
+        <div class="usage-body">
+          <h4>可作为副卡分流使用</h4>
+          <p>保留个人原有主卡绑定微信、银行卡等重要账号，校园卡专门用于上网、开热点、校园学习办公，互不干扰，安全性更高。</p>
+        </div>
       </div>
     </div>
   </section>
