@@ -1,0 +1,999 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>西南民大校园卡 | 专属福利套餐</title>
+<style>
+  :root{
+    --primary:#1E6FFF;
+    --primary-dark:#0A4FD6;
+    --primary-light:#E8F1FF;
+    --accent:#FF6B35;
+    --accent-light:#FFF1EB;
+    --success:#22C55E;
+    --warning:#F59E0B;
+    --purple:#8B5CF6;
+    --text-1:#1A1A2E;
+    --text-2:#4B5563;
+    --text-3:#9CA3AF;
+    --bg:#F5F7FB;
+    --white:#FFFFFF;
+    --shadow:0 4px 20px rgba(30,111,255,.08);
+    --shadow-lg:0 8px 32px rgba(30,111,255,.15);
+    --radius-1:8px;
+    --radius-2:14px;
+    --radius-3:20px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html,body{background:var(--bg);color:var(--text-1);font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Helvetica Neue",sans-serif;line-height:1.6;overflow-x:hidden;max-width:100%}
+  body{padding-bottom:100px}
+  a{text-decoration:none;color:inherit}
+  img{display:block;max-width:100%}
+
+  /* ===== 顶部Banner ===== */
+  .banner{
+    position:relative;
+    background:linear-gradient(135deg,#1E6FFF 0%,#4F9DFF 50%,#7BB8FF 100%);
+    padding:50px 20px 80px;
+    overflow:hidden;
+  }
+  .banner::before{
+    content:"";
+    position:absolute;top:-50px;right:-50px;
+    width:200px;height:200px;border-radius:50%;
+    background:rgba(255,255,255,.08);
+  }
+  .banner::after{
+    content:"";
+    position:absolute;bottom:-80px;left:-60px;
+    width:240px;height:240px;border-radius:50%;
+    background:rgba(255,255,255,.06);
+  }
+  .banner-deco{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+  .deco-circle{position:absolute;border-radius:50%;border:2px solid rgba(255,255,255,.15)}
+  .deco-circle.c1{width:60px;height:60px;top:30px;right:25px;animation:floatY 4s ease-in-out infinite}
+  .deco-circle.c2{width:30px;height:30px;top:80px;right:80px;border-color:rgba(255,255,255,.25);animation:floatY 3.5s ease-in-out infinite .5s}
+  .deco-circle.c3{width:16px;height:16px;bottom:60px;left:40px;background:rgba(255,255,255,.2);border:none;animation:floatY 5s ease-in-out infinite .2s}
+  @keyframes floatY{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+  .banner-logo{display:flex;align-items:center;gap:10px;margin-bottom:20px;position:relative;z-index:2}
+  .logo-badge{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.2);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;font-size:22px}
+  .logo-text{color:#fff;font-size:13px;opacity:.9}
+  .logo-text b{display:block;font-size:15px;opacity:1;margin-bottom:2px}
+  .banner-title{position:relative;z-index:2;color:#fff}
+  .banner-title h1{font-size:28px;font-weight:800;letter-spacing:1px;text-shadow:0 2px 12px rgba(0,0,0,.15);line-height:1.3}
+  .banner-title h1 .hl{background:linear-gradient(90deg,#FFE4B0,#FFCF6B);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .banner-sub{margin-top:10px;color:rgba(255,255,255,.95);font-size:14px;position:relative;z-index:2}
+  .banner-sub-text{display:flex;align-items:center;gap:4px;flex-wrap:wrap;font-weight:600;letter-spacing:.5px}
+  .banner-tags{margin-top:12px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+  .banner-sub .tag{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.18);backdrop-filter:blur(6px);padding:4px 10px;border-radius:20px;font-size:12px}
+  .price-card{position:relative;z-index:2;margin-top:24px;background:rgba(255,255,255,.15);backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.25);border-radius:var(--radius-3);padding:18px 20px;display:flex;align-items:center;justify-content:space-between}
+  .price-left .label{color:rgba(255,255,255,.8);font-size:12px;margin-bottom:4px}
+  .price-row{display:flex;align-items:baseline;gap:8px}
+  .price-old{font-size:16px;color:rgba(255,255,255,.55);text-decoration:line-through;text-decoration-color:rgba(255,255,255,.4)}
+  .price-arrow{font-size:14px;color:rgba(255,255,255,.6)}
+  .price-left .price{color:#fff;font-weight:800;display:flex;align-items:baseline;gap:2px}
+  .price-left .price .num{font-size:40px;line-height:1;background:linear-gradient(180deg,#FFF6D9,#FFD166);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .price-left .price .unit{font-size:16px}
+  .price-left .contract{color:rgba(255,255,255,.75);font-size:12px;margin-top:4px}
+  .price-right{text-align:right}
+  .price-right .badge-free{display:inline-block;background:linear-gradient(135deg,#FF6B35,#FF8F5E);color:#fff;font-size:13px;font-weight:700;padding:8px 14px;border-radius:30px;box-shadow:0 4px 12px rgba(255,107,53,.4);animation:pulse 2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 4px 12px rgba(255,107,53,.4)}50%{transform:scale(1.05);box-shadow:0 6px 20px rgba(255,107,53,.5)}}
+
+  /* ===== 通用容器 ===== */
+  .container{padding:0 16px;margin-top:-40px;position:relative;z-index:5}
+  .section{background:var(--white);border-radius:var(--radius-3);padding:22px 18px;margin-bottom:14px;box-shadow:var(--shadow)}
+  .section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+  .section-title{font-size:18px;font-weight:800;color:var(--text-1);display:flex;align-items:center;gap:8px}
+  .section-title .icon{font-size:22px}
+  .section-tag{font-size:12px;color:var(--primary);background:var(--primary-light);padding:4px 10px;border-radius:20px;font-weight:600}
+
+  /* ===== 核心卖点 ===== */
+  .selling-points{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+  .sp-card{position:relative;border-radius:var(--radius-2);padding:18px 10px 14px;text-align:center;overflow:hidden;transition:transform .2s}
+  .sp-card:active{transform:scale(.96)}
+  .sp-card .sp-icon{width:48px;height:48px;margin:0 auto 10px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px}
+  .sp-card .sp-name{font-size:14px;font-weight:800;margin-bottom:4px}
+  .sp-card .sp-desc{font-size:11px;color:var(--text-2);line-height:1.4}
+  .sp-card.sp1{background:linear-gradient(160deg,#E8F1FF 0%,#D1E4FF 100%)}
+  .sp-card.sp1 .sp-icon{background:linear-gradient(135deg,#1E6FFF,#4F9DFF);color:#fff}
+  .sp-card.sp1 .sp-name{color:var(--primary-dark)}
+  .sp-card.sp2{background:linear-gradient(160deg,#FFF1EB 0%,#FFD9C7 100%)}
+  .sp-card.sp2 .sp-icon{background:linear-gradient(135deg,#FF6B35,#FF8F5E);color:#fff}
+  .sp-card.sp2 .sp-name{color:var(--accent)}
+  .sp-card.sp3{background:linear-gradient(160deg,#F0EBFF 0%,#DDD2FF 100%)}
+  .sp-card.sp3 .sp-icon{background:linear-gradient(135deg,#8B5CF6,#A78BFA);color:#fff}
+  .sp-card.sp3 .sp-name{color:var(--purple)}
+
+  /* ===== 5G专网提示条 ===== */
+  .g5-banner{display:flex;align-items:center;gap:10px;padding:12px 14px;margin-bottom:14px;border-radius:var(--radius-2);background:linear-gradient(135deg,#E8F1FF,#F0F7FF);border:1px solid #D1E4FF}
+  .g5-icon{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#1E6FFF,#0A4FD6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800;flex-shrink:0}
+  .g5-text{font-size:12px;color:var(--text-1);line-height:1.5}
+  .g5-text b{color:var(--primary-dark)}
+
+  /* ===== 办理费用与优惠模块 ===== */
+  .fee-section{background:linear-gradient(135deg,#FF6B35 0%,#FF8F5E 50%,#FFA970 100%);border-radius:var(--radius-3);padding:22px 18px;margin-bottom:14px;color:#fff;box-shadow:0 8px 24px rgba(255,107,53,.2);position:relative;overflow:hidden}
+  .fee-section::before{content:"";position:absolute;top:-40px;right:-40px;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.08)}
+  .fee-section::after{content:"";position:absolute;bottom:-60px;left:-30px;width:120px;height:120px;border-radius:50%;background:rgba(255,255,255,.06)}
+  .fee-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;position:relative;z-index:2}
+  .fee-title{font-size:17px;font-weight:800;display:flex;align-items:center;gap:6px}
+  .fee-total{text-align:center;margin-bottom:18px;position:relative;z-index:2}
+  .fee-total .ft-label{font-size:13px;opacity:.9;margin-bottom:4px}
+  .fee-total .ft-price{font-size:44px;font-weight:800;line-height:1;text-shadow:0 2px 10px rgba(0,0,0,.15)}
+  .fee-total .ft-price .ft-unit{font-size:16px;font-weight:600}
+  .fee-total .ft-tag{display:inline-block;margin-top:8px;background:rgba(255,255,255,.25);backdrop-filter:blur(6px);padding:5px 14px;border-radius:20px;font-size:12px;font-weight:700}
+  .fee-breakdown{display:flex;gap:10px;margin-bottom:16px;position:relative;z-index:2}
+  .fee-item{flex:1;background:rgba(255,255,255,.18);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-2);padding:14px 10px;text-align:center}
+  .fee-item .fi-icon{font-size:22px;margin-bottom:6px}
+  .fee-item .fi-amount{font-size:22px;font-weight:800;line-height:1;margin-bottom:4px}
+  .fee-item .fi-amount .fi-unit{font-size:13px}
+  .fee-item .fi-label{font-size:11px;opacity:.9;line-height:1.3}
+  .fee-compare{background:rgba(255,255,255,.15);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.2);border-radius:var(--radius-2);padding:14px 16px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+  .fc-left{flex:1}
+  .fc-label{font-size:11px;opacity:.85;margin-bottom:4px}
+  .fc-prices{display:flex;align-items:baseline;gap:8px}
+  .fc-old{font-size:18px;text-decoration:line-through;opacity:.6}
+  .fc-arrow{font-size:14px;opacity:.7}
+  .fc-new{font-size:26px;font-weight:800}
+  .fc-new .fc-unit{font-size:13px}
+  .fc-badge{background:#fff;color:var(--accent);font-size:12px;font-weight:800;padding:6px 12px;border-radius:20px;white-space:nowrap;box-shadow:0 2px 8px rgba(0,0,0,.1)}
+  .fee-countdown{margin-top:14px;background:rgba(0,0,0,.18);border-radius:var(--radius-2);padding:14px 16px;position:relative;z-index:2;text-align:center}
+  .fc-msg{font-size:13px;font-weight:700;margin-bottom:10px;line-height:1.4}
+  .fc-msg .fc-warn{color:#FFEFB0}
+  .fc-timer{display:flex;justify-content:center;gap:8px;align-items:center}
+  .fc-block{background:rgba(255,255,255,.15);border-radius:10px;padding:8px 4px;min-width:52px;text-align:center}
+  .fc-block .fc-num{font-size:24px;font-weight:800;line-height:1;font-variant-numeric:tabular-nums;font-family:"SF Mono","Fira Code",monospace}
+  .fc-block .fc-lbl{font-size:10px;opacity:.8;margin-top:3px}
+  .fc-sep{font-size:18px;font-weight:800;opacity:.5}
+  .fc-after{display:none;margin-top:10px;font-size:14px;font-weight:800;color:#FFEFB0}
+  .fee-countdown.expired .fc-msg,.fee-countdown.expired .fc-timer{display:none}
+  .fee-countdown.expired .fc-after{display:block}
+
+  /* ===== 校区Tab切换 ===== */
+  .tab-bar{display:flex;gap:0;background:#F3F4F6;border-radius:var(--radius-2);padding:4px;margin-bottom:18px}
+  .tab-btn{flex:1;padding:12px;text-align:center;font-size:13px;font-weight:700;color:var(--text-2);border-radius:10px;cursor:pointer;transition:all .25s;border:none;background:transparent}
+  .tab-btn.active{background:linear-gradient(135deg,#1E6FFF,#4F9DFF);color:#fff;box-shadow:0 4px 12px rgba(30,111,255,.3)}
+  .tab-btn:active{transform:scale(.97)}
+  .tab-panel{display:none}
+  .tab-panel.active{display:block;animation:fadePanel .3s ease}
+  @keyframes fadePanel{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+  /* ===== 套餐数据展示 ===== */
+  .pkg-hero{text-align:center;margin-bottom:16px}
+  .pkg-total{font-size:13px;color:var(--text-2);margin-bottom:4px}
+  .pkg-total b{color:var(--primary);font-size:20px}
+  .pkg-total .unit{font-size:13px}
+  .pkg-meta{display:flex;justify-content:center;gap:16px;font-size:12px;color:var(--text-2)}
+  .pkg-meta span{display:flex;align-items:center;gap:3px}
+  .flow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+  .flow-card{position:relative;border-radius:var(--radius-2);padding:16px 10px;text-align:center;overflow:hidden}
+  .flow-card .flow-num{font-size:26px;font-weight:800;line-height:1.1}
+  .flow-card .flow-unit{font-size:12px;font-weight:600;margin-top:2px}
+  .flow-card .flow-label{font-size:11px;color:var(--text-2);margin-top:6px;line-height:1.3}
+  .flow-card.f1{background:linear-gradient(160deg,#E8F1FF 0%,#D1E4FF 100%)}
+  .flow-card.f1 .flow-num{color:var(--primary)}
+  .flow-card.f1 .flow-unit{color:var(--primary)}
+  .flow-card.f2{background:linear-gradient(160deg,#FFF1EB 0%,#FFD9C7 100%)}
+  .flow-card.f2 .flow-num{color:var(--accent)}
+  .flow-card.f2 .flow-unit{color:var(--accent)}
+  .flow-card.f3{background:linear-gradient(160deg,#F0EBFF 0%,#DDD2FF 100%)}
+  .flow-card.f3 .flow-num{color:var(--purple)}
+  .flow-card.f3 .flow-unit{color:var(--purple)}
+  .flow-tip{padding:10px 14px;background:#F9FAFB;border-radius:var(--radius-1);font-size:12px;color:var(--text-2);display:flex;gap:6px;align-items:flex-start}
+  .flow-tip b{color:var(--text-1)}
+  .pkg-extras{display:flex;gap:10px;margin-top:12px}
+  .pkg-extra{flex:1;display:flex;align-items:center;gap:8px;padding:12px;border-radius:var(--radius-2);background:#F9FAFB}
+  .pkg-extra .pe-icon{font-size:20px;flex-shrink:0}
+  .pkg-extra .pe-info .pe-name{font-size:13px;font-weight:700;color:var(--text-1)}
+  .pkg-extra .pe-info .pe-desc{font-size:11px;color:var(--text-2)}
+
+  /* ===== APP列表（定向流量）折叠 ===== */
+  .apps-section{margin-top:16px}
+  .apps-toggle{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-radius:var(--radius-2);background:linear-gradient(135deg,#F5F3FF,#EDE9FE);border:1px solid #DDD2FF;cursor:pointer;transition:transform .15s}
+  .apps-toggle:active{transform:scale(.98)}
+  .apps-toggle .at-left{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--purple)}
+  .apps-toggle .at-arrow{font-size:14px;color:var(--purple);transition:transform .3s}
+  .apps-toggle.open .at-arrow{transform:rotate(180deg)}
+  .apps-content{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .apps-content.open{max-height:1200px}
+  .apps-series{padding:14px 0 0}
+  .series-block{margin-bottom:14px}
+  .series-title{font-size:12px;font-weight:700;color:var(--text-1);margin-bottom:8px;display:flex;align-items:center;gap:6px}
+  .series-title .st-badge{font-size:10px;padding:2px 8px;border-radius:6px;font-weight:600}
+  .st-badge.sb-baidu{background:#FFF1E0;color:#D97706}
+  .st-badge.sb-douyin{background:#FFE4E1;color:#DC2626}
+  .st-badge.sb-netease{background:#E8F5E9;color:#2E7D32}
+  .st-badge.sb-tencent{background:#E3F2FD;color:#1565C0}
+  .st-badge.sb-ali{background:#FFF3E0;color:#E65100}
+  .apps-list{display:grid;grid-template-columns:repeat(6,1fr);gap:12px 6px}
+  .app-item{text-align:center}
+  .app-icon{width:40px;height:40px;margin:0 auto 6px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#fff}
+  .app-name{font-size:10px;color:var(--text-2);line-height:1.2}
+  .ai-1{background:linear-gradient(135deg,#FF6699,#FF3366)}
+  .ai-2{background:linear-gradient(135deg,#00C853,#00A844)}
+  .ai-3{background:linear-gradient(135deg,#C62828,#E53935)}
+  .ai-4{background:linear-gradient(135deg,#2196F3,#1976D2)}
+  .ai-5{background:linear-gradient(135deg,#FF9800,#F57C00)}
+  .ai-6{background:linear-gradient(135deg,#FB7299,#E63A69)}
+  .ai-7{background:linear-gradient(135deg,#7B68EE,#5D4AE0)}
+  .ai-8{background:linear-gradient(135deg,#FF5722,#E64A19)}
+  .ai-9{background:linear-gradient(135deg,#4CAF50,#388E3C)}
+  .ai-10{background:linear-gradient(135deg,#37474F,#263238)}
+  .ai-11{background:linear-gradient(135deg,#2196F3,#00BCD4)}
+  .ai-12{background:linear-gradient(135deg,#FFC107,#FF9800)}
+
+  /* ===== 宽带与权益 ===== */
+  .benefits-list{display:flex;flex-direction:column;gap:12px}
+  .benefit-item{display:flex;align-items:center;gap:14px;padding:14px;border-radius:var(--radius-2);background:#FAFBFF;transition:transform .2s}
+  .benefit-item:active{transform:scale(.98)}
+  .benefit-icon{width:44px;height:44px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:22px}
+  .benefit-icon.i1{background:linear-gradient(135deg,#1E6FFF,#4F9DFF);color:#fff}
+  .benefit-icon.i2{background:linear-gradient(135deg,#FF6B35,#FF8F5E);color:#fff}
+  .benefit-icon.i3{background:linear-gradient(135deg,#8B5CF6,#A78BFA);color:#fff}
+  .benefit-icon.i4{background:linear-gradient(135deg,#22C55E,#4ADE80);color:#fff}
+  .benefit-info{flex:1;min-width:0}
+  .benefit-name{font-size:15px;font-weight:700;color:var(--text-1);margin-bottom:4px}
+  .benefit-desc{font-size:12px;color:var(--text-2);line-height:1.4}
+  .benefit-tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:6px;flex-shrink:0}
+  .tag-green{background:#DCFCE7;color:#15803D}
+  .tag-orange{background:#FFEDD5;color:#C2410C}
+  .tag-purple{background:#EDE9FE;color:#6D28D9}
+  .tag-blue{background:#DBEAFE;color:#1D4ED8}
+  .member-choose{margin-top:14px;padding:14px;border-radius:var(--radius-2);background:linear-gradient(135deg,#F5F3FF 0%,#EDE9FE 100%);border:1px dashed #C4B5FD}
+  .mc-title{font-size:13px;font-weight:700;color:var(--purple);margin-bottom:10px;display:flex;align-items:center;gap:6px}
+  .mc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+  .mc-item{background:#fff;border-radius:10px;padding:10px 4px;text-align:center;font-size:10px;color:var(--text-2);line-height:1.2}
+  .mc-item .mc-emoji{font-size:20px;margin-bottom:4px;display:block}
+
+  /* ===== 线上办理福利 ===== */
+  .welfare-section{background:linear-gradient(180deg,#FFF8F1 0%,#FFFFFF 30%)}
+  .welfare-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+  .welfare-card{position:relative;border-radius:var(--radius-2);padding:14px 12px;background:#fff;border:1px solid #F3F4F6;overflow:hidden}
+  .welfare-card::before{content:"";position:absolute;top:0;left:0;width:4px;height:100%;border-radius:0 4px 4px 0}
+  .welfare-card.w1::before{background:linear-gradient(180deg,#FF6B35,#FFD166)}
+  .welfare-card.w2::before{background:linear-gradient(180deg,#1E6FFF,#4F9DFF)}
+  .welfare-card.w3::before{background:linear-gradient(180deg,#8B5CF6,#A78BFA)}
+  .welfare-card.w4::before{background:linear-gradient(180deg,#22C55E,#4ADE80)}
+  .welfare-card.w5::before{background:linear-gradient(180deg,#EC4899,#F472B6)}
+  .welfare-card.w6::before{background:linear-gradient(180deg,#F59E0B,#FBBF24)}
+  .welfare-badge{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+  .badge-hot{background:#FEF2F2;color:#DC2626}
+  .badge-new{background:#EFF6FF;color:#2563EB}
+  .badge-vip{background:#FAF5FF;color:#7C3AED}
+  .welfare-emoji{font-size:28px;margin-bottom:8px}
+  .welfare-name{font-size:14px;font-weight:800;color:var(--text-1);margin-bottom:4px;line-height:1.3}
+  .welfare-desc{font-size:11px;color:var(--text-2);line-height:1.4}
+
+  /* ===== 信任背书 ===== */
+  .trust-section{background:linear-gradient(135deg,#FEFEFF 0%,#F0F7FF 100%);border:1px solid #D1E4FF}
+  .trust-points{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px}
+  .trust-point{text-align:center;padding:14px 8px;border-radius:var(--radius-2);background:rgba(255,255,255,.6)}
+  .tp-icon{width:44px;height:44px;margin:0 auto 8px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;color:#fff}
+  .tp1 .tp-icon{background:linear-gradient(135deg,#1E6FFF,#0A4FD6)}
+  .tp2 .tp-icon{background:linear-gradient(135deg,#22C55E,#16A34A)}
+  .tp3 .tp-icon{background:linear-gradient(135deg,#F59E0B,#D97706)}
+  .tp-name{font-size:13px;font-weight:800;color:var(--text-1);margin-bottom:4px}
+  .tp-desc{font-size:10px;color:var(--text-2);line-height:1.3}
+  .trust-badge{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,rgba(30,111,255,.1),rgba(79,157,255,.05));border:1px solid rgba(30,111,255,.2);padding:8px 16px;border-radius:30px;margin-bottom:14px}
+  .trust-badge .seal{width:28px;height:28px;border-radius:50%;background:linear-gradient(135deg,#1E6FFF,#0A4FD6);display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px}
+  .trust-badge span{font-size:13px;font-weight:700;color:var(--primary-dark)}
+  .trust-text{font-size:13px;color:var(--text-2);line-height:1.7;margin-bottom:14px;text-align:center}
+  .trust-text b{color:var(--text-1)}
+  .trust-btn{display:inline-flex;align-items:center;gap:6px;background:var(--white);border:1.5px solid var(--primary);color:var(--primary);font-size:13px;font-weight:700;padding:10px 20px;border-radius:30px;transition:all .2s}
+  .trust-btn:active{transform:scale(.96);background:var(--primary-light)}
+  .campus-info{margin-top:16px;padding-top:14px;border-top:1px dashed #D1E4FF;display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+  .campus-chip{font-size:11px;color:var(--text-2);background:rgba(30,111,255,.06);padding:5px 12px;border-radius:16px}
+  .trust-content{text-align:center}
+
+  /* ===== 学长背书 ===== */
+  .senior-section{background:linear-gradient(135deg,#FFF9F5 0%,#FFFFFF 50%)}
+  .senior-card{display:flex;gap:14px;align-items:center;padding:16px;background:linear-gradient(135deg,#FFFFFF,#FFFBF7);border:1px solid #FFE4D1;border-radius:var(--radius-2)}
+  .senior-avatar{width:60px;height:60px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,#FF6B35,#FFD166);display:flex;align-items:center;justify-content:center;font-size:28px;box-shadow:0 4px 12px rgba(255,107,53,.25)}
+  .senior-info{flex:1;min-width:0}
+  .senior-name{font-size:16px;font-weight:800;color:var(--text-1);display:flex;align-items:center;gap:6px}
+  .senior-name .verify{font-size:11px;background:linear-gradient(135deg,#1E6FFF,#4F9DFF);color:#fff;padding:2px 8px;border-radius:10px}
+  .senior-title{font-size:12px;color:var(--text-2);margin-top:4px}
+  .senior-desc{font-size:12px;color:var(--text-2);margin-top:10px;line-height:1.5;padding:10px 12px;background:#FFFAF5;border-radius:var(--radius-1);border-left:3px solid var(--accent)}
+
+  /* ===== 底部CTA ===== */
+  .cta-sticky{position:fixed;left:0;right:0;bottom:0;z-index:100;background:rgba(255,255,255,.96);backdrop-filter:blur(16px);border-top:1px solid #F0F0F0;padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px;align-items:center}
+  .cta-service{display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 10px;color:var(--text-2);font-size:10px}
+  .cta-service .s-ico{font-size:20px}
+  .cta-main{flex:1;height:48px;border:none;cursor:pointer;background:linear-gradient(135deg,#FF6B35 0%,#FF8F5E 100%);color:#fff;font-size:16px;font-weight:800;letter-spacing:1px;border-radius:30px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 6px 20px rgba(255,107,53,.4);transition:all .15s;position:relative;overflow:hidden}
+  .cta-main::after{content:"";position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.25),transparent);animation:shine 2.5s ease-in-out infinite}
+  @keyframes shine{0%{left:-100%}50%,100%{left:100%}}
+  .cta-main:active{transform:scale(.97);box-shadow:0 3px 12px rgba(255,107,53,.35)}
+
+  /* ===== 底部版权 ===== */
+  .footer{text-align:center;margin-top:24px;padding:0 20px 10px}
+  .footer-support{font-size:12px;color:var(--text-3);margin-bottom:6px;line-height:1.6}
+  .footer-support b{color:var(--text-2)}
+  .footer-copy{font-size:11px;color:#D1D5DB;line-height:1.6}
+
+  /* ===== 滚动动画 ===== */
+  .fade-up{opacity:0;transform:translateY(20px);transition:all .5s ease}
+  .fade-up.visible{opacity:1;transform:translateY(0)}
+  ::-webkit-scrollbar{display:none}
+
+  /* ===== 微信二维码弹窗 ===== */
+  .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.55);backdrop-filter:blur(4px);z-index:1000;display:none;align-items:center;justify-content:center;padding:24px;opacity:0;transition:opacity .25s ease}
+  .modal-mask.show{display:flex;opacity:1}
+  .modal-card{width:100%;max-width:340px;background:#fff;border-radius:var(--radius-3);padding:24px 20px 20px;position:relative;box-shadow:0 20px 60px rgba(0,0,0,.3);transform:scale(.92) translateY(20px);transition:all .3s cubic-bezier(.2,.9,.3,1.3)}
+  .modal-mask.show .modal-card{transform:scale(1) translateY(0)}
+  .modal-close{position:absolute;top:12px;right:14px;width:30px;height:30px;border-radius:50%;background:#F3F4F6;border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:#6B7280;transition:all .15s}
+  .modal-close:active{transform:scale(.9);background:#E5E7EB}
+  .modal-head{text-align:center;margin-bottom:18px;padding-top:4px}
+  .modal-head h3{font-size:18px;font-weight:800;color:var(--text-1);margin-bottom:6px}
+  .modal-head p{font-size:13px;color:var(--text-2);line-height:1.5}
+  .modal-head p b{color:var(--primary)}
+  .qr-wrap{width:220px;height:220px;margin:0 auto 14px;padding:12px;background:linear-gradient(135deg,#F0F7FF,#fff);border-radius:var(--radius-2);border:2px solid var(--primary-light);position:relative}
+  .qr-wrap::before{content:"";position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:44px;height:44px;background:#fff url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="%2307C160"><path d="M8.691 2.188C3.891 2.188 0 5.476 0 9.53c0 2.212 1.17 4.203 3.002 5.55a.59.59 0 01.213.665l-.39 1.48c-.019.07-.048.141-.048.213 0 .163.13.295.29.295a.326.326 0 00.167-.054l1.903-1.114a.864.864 0 01.717-.098 10.16 10.16 0 002.837.403c.276 0 .543-.027.811-.05-.857-2.578.157-4.972 1.932-6.446 1.703-1.415 3.882-1.98 5.853-1.838-.576-3.583-4.196-6.348-8.596-6.348zM5.785 5.991c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178A1.17 1.17 0 014.623 7.17c0-.651.52-1.18 1.162-1.18zm5.813 0c.642 0 1.162.529 1.162 1.18a1.17 1.17 0 01-1.162 1.178 1.17 1.17 0 01-1.162-1.178c0-.651.52-1.18 1.162-1.18zm5.34 2.867c-1.797-.052-3.746.512-5.28 1.786-1.72 1.428-2.687 3.72-1.78 6.22.942 2.453 3.666 4.229 6.884 4.229.826 0 1.622-.12 2.361-.336a.722.722 0 01.598.082l1.584.926a.272.272 0 00.14.047c.134 0 .24-.111.24-.247 0-.06-.023-.12-.038-.177l-.327-1.233a.582.582 0 01-.023-.156.49.49 0 01.201-.398C23.024 18.48 24 16.82 24 14.98c0-3.21-2.931-5.837-6.656-6.088V8.89l-.406.068zm-2.56 3.228a.975.975 0 110 1.95.975.975 0 010-1.95zm4.844 0a.975.975 0 110 1.95.975.975 0 010-1.95z"/></svg>') center/26px no-repeat;border-radius:10px;z-index:2}
+  .qr-wrap img{width:100%;height:100%;display:block;object-fit:contain}
+  .qr-placeholder{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;color:var(--text-3);font-size:11px;text-align:center;background:repeating-conic-gradient(#E8F1FF 0 25%,#fff 0 50%) 50% / 20px 20px;border-radius:8px}
+  .qr-placeholder .wechat-icon{font-size:36px}
+  .qr-placeholder b{color:var(--primary)}
+  .wxid-row{display:flex;align-items:center;gap:10px;padding:12px 14px;background:linear-gradient(135deg,#F0F7FF,#fff);border-radius:var(--radius-1);border:1px solid #D1E4FF;margin-bottom:14px}
+  .wxid-row .wx-label{font-size:12px;color:var(--text-2);white-space:nowrap}
+  .wxid-row .wx-id{flex:1;font-size:15px;font-weight:800;color:var(--primary-dark);letter-spacing:.5px}
+  .wx-copy{background:var(--primary);color:#fff;border:none;border-radius:8px;padding:8px 14px;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s}
+  .wx-copy:active{transform:scale(.95);background:var(--primary-dark)}
+  .wx-copy.copied{background:var(--success)}
+  .modal-tip{text-align:center;font-size:12px;color:var(--text-3);line-height:1.5;padding:0 6px}
+  .modal-tip b{color:var(--text-2)}
+</style>
+</head>
+<body>
+
+<!-- ===== 顶部Banner ===== -->
+<section class="banner">
+  <div class="banner-deco">
+    <div class="deco-circle c1"></div>
+    <div class="deco-circle c2"></div>
+    <div class="deco-circle c3"></div>
+  </div>
+  <div class="banner-logo">
+    <div class="logo-badge">🎓</div>
+    <div class="logo-text">
+      <b>西南民族大学</b>
+      中国移动官方合作
+    </div>
+  </div>
+  <div class="banner-title">
+    <h1>西南民族大学<br>专属<span class="hl">校园卡</span></h1>
+    <div class="banner-sub">
+      <div class="banner-sub-text">宽带不限速 · 内网随便逛 · 流量管够 · 会员免费享</div>
+    </div>
+    <div class="banner-tags">
+      <span class="tag">✓ 武侯校区</span>
+      <span class="tag">✓ 航空港校区</span>
+      <span class="tag">✓ 太平园校区</span>
+    </div>
+  </div>
+  <div class="price-card">
+    <div class="price-left">
+      <div class="label">新生优惠价</div>
+      <div class="price-row">
+        <span class="price-old">59元</span>
+        <span class="price-arrow">→</span>
+        <span class="price"><span class="num">40</span><span class="unit">元/月</span></span>
+      </div>
+      <div class="contract">合约4年 · 优惠四年 · 在校期间一直享</div>
+    </div>
+    <div class="price-right">
+      <div class="badge-free">🎁 首月0元</div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+  <!-- ===== 5G专网提示条 ===== -->
+  <div class="g5-banner fade-up">
+    <div class="g5-icon">5G</div>
+    <div class="g5-text">
+      <b>5G双域专网已开通！</b>无需VPN即可访问校内系统，选课、查成绩、看资源丝滑无阻～
+    </div>
+  </div>
+
+  <!-- ===== 办理费用与优惠 ===== -->
+  <section class="fee-section fade-up">
+    <div class="fee-head">
+      <div class="fee-title">💰 办理费用与优惠</div>
+    </div>
+    <div class="fee-total">
+      <div class="ft-label">仅需一次性办理费用</div>
+      <div class="ft-price">150<span class="ft-unit">元</span></div>
+      <div class="ft-tag">🔥 新生限时优惠 · 月租直降19元</div>
+    </div>
+    <div class="fee-breakdown">
+      <div class="fee-item">
+        <div class="fi-icon">📱</div>
+        <div class="fi-amount">100<span class="fi-unit">元</span></div>
+        <div class="fi-label">直充话费余额<br>账户实得100元</div>
+      </div>
+      <div class="fee-item">
+        <div class="fi-icon">🎟️</div>
+        <div class="fi-amount">50<span class="fi-unit">元</span></div>
+        <div class="fi-label">活动参与费<br>解锁四年优惠价</div>
+      </div>
+    </div>
+    <div class="fee-compare">
+      <div class="fc-left">
+        <div class="fc-label">套餐月租价格对比</div>
+        <div class="fc-prices">
+          <span class="fc-old">59元/月</span>
+          <span class="fc-arrow">→</span>
+          <span class="fc-new">40<span class="fc-unit">元/月</span></span>
+        </div>
+      </div>
+      <div class="fc-badge">优惠四年</div>
+    </div>
+    <div class="fee-countdown" id="feeCountdown">
+      <div class="fc-msg">⏰ 8月21日 23:59 后月租涨至 <span class="fc-warn">50元/月</span>，抓紧办理锁定40元优惠价！</div>
+      <div class="fc-timer" id="fcTimer">
+        <div class="fc-block"><div class="fc-num" id="cd-d">00</div><div class="fc-lbl">天</div></div>
+        <div class="fc-sep">:</div>
+        <div class="fc-block"><div class="fc-num" id="cd-h">00</div><div class="fc-lbl">时</div></div>
+        <div class="fc-sep">:</div>
+        <div class="fc-block"><div class="fc-num" id="cd-m">00</div><div class="fc-lbl">分</div></div>
+        <div class="fc-sep">:</div>
+        <div class="fc-block"><div class="fc-num" id="cd-s">00</div><div class="fc-lbl">秒</div></div>
+      </div>
+      <div class="fc-after">⚠️ 优惠活动已结束，月租已调整为50元/月</div>
+    </div>
+  </section>
+
+  <!-- ===== 核心卖点 ===== -->
+  <section class="section fade-up">
+    <div class="section-head">
+      <div class="section-title"><span class="icon">⭐</span>核心卖点</div>
+      <div class="section-tag">三大特权</div>
+    </div>
+    <div class="selling-points">
+      <div class="sp-card sp1">
+        <div class="sp-icon">🌐</div>
+        <div class="sp-name">网络特权</div>
+        <div class="sp-desc">校园宽带不限速<br>直接访问校内系统</div>
+      </div>
+      <div class="sp-card sp2">
+        <div class="sp-icon">📶</div>
+        <div class="sp-name">流量无忧</div>
+        <div class="sp-desc">最高680G超大流量<br>通用+校区+定向</div>
+      </div>
+      <div class="sp-card sp3">
+        <div class="sp-icon">🎁</div>
+        <div class="sp-name">会员福利</div>
+        <div class="sp-desc">每月送视频会员<br>追剧听歌全免费</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 套餐详情（校区Tab切换）===== -->
+  <section class="section fade-up">
+    <div class="section-head">
+      <div class="section-title"><span class="icon">📋</span>套餐详情</div>
+      <div class="section-tag">分校区查看</div>
+    </div>
+    <div class="tab-bar">
+      <button class="tab-btn active" data-tab="hangkong">✈️ 航空港校区</button>
+      <button class="tab-btn" data-tab="wuhou">🏛️ 武侯/太平园</button>
+    </div>
+
+    <!-- 航空港校区套餐 -->
+    <div class="tab-panel active" id="panel-hangkong">
+      <div class="pkg-hero">
+        <div class="pkg-total">月租 <b>40</b><span class="unit">元/月</span> · 合约4年</div>
+        <div class="pkg-meta">
+          <span>📡 共计 <b style="color:var(--accent)">680G</b> 流量</span>
+          <span>📞 200分钟通话</span>
+        </div>
+      </div>
+      <div class="flow-grid">
+        <div class="flow-card f1">
+          <div class="flow-num">200G</div>
+          <div class="flow-unit">全国通用</div>
+          <div class="flow-label">走到哪用到哪<br>回家也不慌</div>
+        </div>
+        <div class="flow-card f2">
+          <div class="flow-num">450G</div>
+          <div class="flow-unit">校区流量</div>
+          <div class="flow-label">川内高校1.5KM<br>全覆盖任性刷</div>
+        </div>
+        <div class="flow-card f3">
+          <div class="flow-num">30G</div>
+          <div class="flow-unit">定向流量</div>
+          <div class="flow-label">追剧听歌打游戏<br>专属免流</div>
+        </div>
+      </div>
+      <div class="flow-tip">
+        <span>💡</span>
+        <div>校区流量适用于<b>四川省内高校周边1.5公里范围</b>，在教室、宿舍、图书馆、食堂都能畅快使用！</div>
+      </div>
+      <div class="pkg-extras">
+        <div class="pkg-extra">
+          <div class="pe-icon">📞</div>
+          <div class="pe-info">
+            <div class="pe-name">200分钟通话</div>
+            <div class="pe-desc">全国接听免费</div>
+          </div>
+        </div>
+        <div class="pkg-extra">
+          <div class="pe-icon">🌐</div>
+          <div class="pe-info">
+            <div class="pe-name">校园宽带</div>
+            <div class="pe-desc">不限流 · 不限速</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 武侯/太平园校区套餐 -->
+    <div class="tab-panel" id="panel-wuhou">
+      <div class="pkg-hero">
+        <div class="pkg-total">月租 <b>40</b><span class="unit">元/月</span> · 合约4年</div>
+        <div class="pkg-meta">
+          <span>📡 共计 <b style="color:var(--accent)">450G</b> 流量</span>
+          <span>📞 300分钟通话</span>
+        </div>
+      </div>
+      <div class="flow-grid">
+        <div class="flow-card f1">
+          <div class="flow-num">120G</div>
+          <div class="flow-unit">全国通用</div>
+          <div class="flow-label">走到哪用到哪<br>回家也不慌</div>
+        </div>
+        <div class="flow-card f2">
+          <div class="flow-num">300G</div>
+          <div class="flow-unit">校区流量</div>
+          <div class="flow-label">川内高校1.5KM<br>全覆盖任性刷</div>
+        </div>
+        <div class="flow-card f3">
+          <div class="flow-num">30G</div>
+          <div class="flow-unit">定向流量</div>
+          <div class="flow-label">追剧听歌打游戏<br>专属免流</div>
+        </div>
+      </div>
+      <div class="flow-tip">
+        <span>💡</span>
+        <div>校区流量适用于<b>四川省内高校周边1.5公里范围</b>，在教室、宿舍、图书馆、食堂都能畅快使用！</div>
+      </div>
+      <div class="pkg-extras">
+        <div class="pkg-extra">
+          <div class="pe-icon">📞</div>
+          <div class="pe-info">
+            <div class="pe-name">300分钟通话</div>
+            <div class="pe-desc">全国接听免费</div>
+          </div>
+        </div>
+        <div class="pkg-extra">
+          <div class="pe-icon">🌐</div>
+          <div class="pe-info">
+            <div class="pe-name">校园宽带</div>
+            <div class="pe-desc">不限流 · 不限速</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 定向流量APP（折叠） -->
+    <div class="apps-section">
+      <div class="apps-toggle" id="appsToggle">
+        <div class="at-left">
+          <span>🎬</span>
+          <span>定向免流APP清单（点击展开）</span>
+        </div>
+        <span class="at-arrow">▼</span>
+      </div>
+      <div class="apps-content" id="appsContent">
+        <div class="apps-series">
+          <div class="series-block">
+            <div class="series-title"><span>🔍</span>百度系列 <span class="st-badge sb-baidu">免流</span></div>
+            <div class="apps-list">
+              <div class="app-item"><div class="app-icon ai-10">搜</div><div class="app-name">百度</div></div>
+              <div class="app-item"><div class="app-icon ai-1">爱</div><div class="app-name">爱奇艺</div></div>
+              <div class="app-item"><div class="app-icon ai-4">图</div><div class="app-name">百度地图</div></div>
+              <div class="app-item"><div class="app-icon ai-11">盘</div><div class="app-name">百度网盘</div></div>
+            </div>
+          </div>
+          <div class="series-block">
+            <div class="series-title"><span>🎵</span>抖音系列 <span class="st-badge sb-douyin">免流</span></div>
+            <div class="apps-list">
+              <div class="app-item"><div class="app-icon ai-1">抖</div><div class="app-name">抖音</div></div>
+              <div class="app-item"><div class="app-icon ai-8">头</div><div class="app-name">头条</div></div>
+              <div class="app-item"><div class="app-icon ai-5">西</div><div class="app-name">西瓜视频</div></div>
+              <div class="app-item"><div class="app-icon ai-6">皮</div><div class="app-name">皮皮虾</div></div>
+              <div class="app-item"><div class="app-icon ai-3">番</div><div class="app-name">番茄畅听</div></div>
+              <div class="app-item"><div class="app-icon ai-2">颜</div><div class="app-name">轻颜相机</div></div>
+            </div>
+          </div>
+          <div class="series-block">
+            <div class="series-title"><span>🎮</span>网易游戏 <span class="st-badge sb-netease">免流</span></div>
+            <div class="apps-list">
+              <div class="app-item"><div class="app-icon ai-2">梦</div><div class="app-name">梦幻西游</div></div>
+              <div class="app-item"><div class="app-icon ai-7">倩</div><div class="app-name">倩女幽魂</div></div>
+              <div class="app-item"><div class="app-icon ai-9">5</div><div class="app-name">第五人格</div></div>
+              <div class="app-item"><div class="app-icon ai-6">阴</div><div class="app-name">阴阳师</div></div>
+            </div>
+          </div>
+          <div class="series-block">
+            <div class="series-title"><span>🐧</span>腾讯系列 <span class="st-badge sb-tencent">免流</span></div>
+            <div class="apps-list">
+              <div class="app-item"><div class="app-icon ai-4">Q</div><div class="app-name">QQ</div></div>
+              <div class="app-item"><div class="app-icon ai-3">🐧</div><div class="app-name">腾讯视频</div></div>
+              <div class="app-item"><div class="app-icon ai-9">🔫</div><div class="app-name">和平精英</div></div>
+              <div class="app-item"><div class="app-icon ai-11">音</div><div class="app-name">QQ音乐</div></div>
+              <div class="app-item"><div class="app-icon ai-9">狗</div><div class="app-name">酷狗音乐</div></div>
+              <div class="app-item"><div class="app-icon ai-10">我</div><div class="app-name">酷我音乐</div></div>
+            </div>
+          </div>
+          <div class="series-block">
+            <div class="series-title"><span>🛒</span>阿里系列 <span class="st-badge sb-ali">免流</span></div>
+            <div class="apps-list">
+              <div class="app-item"><div class="app-icon ai-2">优</div><div class="app-name">优酷</div></div>
+              <div class="app-item"><div class="app-icon ai-8">淘</div><div class="app-name">淘宝</div></div>
+              <div class="app-item"><div class="app-icon ai-5">猫</div><div class="app-name">天猫</div></div>
+              <div class="app-item"><div class="app-icon ai-1">支</div><div class="app-name">支付宝</div></div>
+              <div class="app-item"><div class="app-icon ai-7">钉</div><div class="app-name">钉钉</div></div>
+              <div class="app-item"><div class="app-icon ai-6">闲</div><div class="app-name">闲鱼</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 宽带与权益 ===== -->
+  <section class="section fade-up">
+    <div class="section-head">
+      <div class="section-title"><span class="icon">🎁</span>宽带 & 会员权益</div>
+      <div class="section-tag">每月都享</div>
+    </div>
+    <div class="benefits-list">
+      <div class="benefit-item">
+        <div class="benefit-icon i1">🌐</div>
+        <div class="benefit-info">
+          <div class="benefit-name">校园宽带 不限速</div>
+          <div class="benefit-desc">不限流 · 不限速 · 打游戏追剧丝滑流畅 · 直接访问校内系统</div>
+        </div>
+        <div class="benefit-tag tag-blue">不限速</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon i2">🥭</div>
+        <div class="benefit-info">
+          <div class="benefit-name">芒果TV会员</div>
+          <div class="benefit-desc">每月固定赠送 · 热门综艺《乘风2026》《歌手》抢先看</div>
+        </div>
+        <div class="benefit-tag tag-orange">每月送</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon i4">🎬</div>
+        <div class="benefit-info">
+          <div class="benefit-name">咪咕视频会员</div>
+          <div class="benefit-desc">每月固定赠送 · 看英超/五大联赛/中超体育赛事</div>
+        </div>
+        <div class="benefit-tag tag-green">每月送</div>
+      </div>
+      <div class="benefit-item">
+        <div class="benefit-icon i3">🎁</div>
+        <div class="benefit-info">
+          <div class="benefit-name">自选会员N选1</div>
+          <div class="benefit-desc">视频/音乐/游戏/学习，每月自由切换不重样</div>
+        </div>
+        <div class="benefit-tag tag-purple">随心选</div>
+      </div>
+    </div>
+    <div class="member-choose">
+      <div class="mc-title">✨ 每月可选会员范围（任选其一）</div>
+      <div class="mc-grid">
+        <div class="mc-item"><span class="mc-emoji">🎬</span>爱奇艺</div>
+        <div class="mc-item"><span class="mc-emoji">🐧</span>腾讯视频</div>
+        <div class="mc-item"><span class="mc-emoji">📺</span>哔哩哔哩</div>
+        <div class="mc-item"><span class="mc-emoji">🎵</span>网易云音乐</div>
+        <div class="mc-item"><span class="mc-emoji">🎶</span>QQ音乐</div>
+        <div class="mc-item"><span class="mc-emoji">🐶</span>酷狗音乐</div>
+        <div class="mc-item"><span class="mc-emoji">🎮</span>游戏权益</div>
+        <div class="mc-item"><span class="mc-emoji">📚</span>学习会员</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 线上办理专属福利 ===== -->
+  <section class="section welfare-section fade-up">
+    <div class="section-head">
+      <div class="section-title"><span class="icon">🎊</span>线上办理专属</div>
+      <div class="section-tag" style="background:#FFF1EB;color:#C2410C">仅限线上</div>
+    </div>
+    <div class="welfare-grid">
+      <div class="welfare-card w1">
+        <div class="welfare-badge badge-hot">HOT</div>
+        <div class="welfare-emoji">🎒</div>
+        <div class="welfare-name">民大周边文创</div>
+        <div class="welfare-desc">精美文创产品免费领，专属纪念品带回家</div>
+      </div>
+      <div class="welfare-card w2">
+        <div class="welfare-badge badge-new">NEW</div>
+        <div class="welfare-emoji">📖</div>
+        <div class="welfare-name">大一公共课课本</div>
+        <div class="welfare-desc">免费赠送一本，省下买书钱约起来！</div>
+      </div>
+      <div class="welfare-card w3">
+        <div class="welfare-badge badge-vip">VIP</div>
+        <div class="welfare-emoji">💻</div>
+        <div class="welfare-name">四年网课全包</div>
+        <div class="welfare-desc">大学四年网课流量/服务费全免，学到爽</div>
+      </div>
+      <div class="welfare-card w4">
+        <div class="welfare-badge badge-hot">必抢</div>
+        <div class="welfare-emoji">🆓</div>
+        <div class="welfare-name">首月0元体验</div>
+        <div class="welfare-desc">线上办理首月免费，满意再继续使用</div>
+      </div>
+      <div class="welfare-card w5">
+        <div class="welfare-emoji">📦</div>
+        <div class="welfare-name">顺丰包邮1-3天达</div>
+        <div class="welfare-desc">送到家/宿舍，开学前拿到不用等</div>
+      </div>
+      <div class="welfare-card w6">
+        <div class="welfare-emoji">🛠️</div>
+        <div class="welfare-name">专人上门售后</div>
+        <div class="welfare-desc">网络问题一对一上门，再也不怕断网啦</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 信任背书 ===== -->
+  <section class="section trust-section fade-up">
+    <div class="trust-content">
+      <div class="trust-badge">
+        <div class="seal">✓</div>
+        <span>中国移动 · 官方权威背书</span>
+      </div>
+    </div>
+    <div class="trust-points">
+      <div class="trust-point tp1">
+        <div class="tp-icon">🏅</div>
+        <div class="tp-name">官方认证</div>
+        <div class="tp-desc">学校首批合作运营商<br>5G双域专网已开通</div>
+      </div>
+      <div class="trust-point tp2">
+        <div class="tp-icon">🏗️</div>
+        <div class="tp-name">独家承建</div>
+        <div class="tp-desc">全校网络基础设施<br>由移动承包，体验最稳</div>
+      </div>
+      <div class="trust-point tp3">
+        <div class="tp-icon">📡</div>
+        <div class="tp-name">信号最强</div>
+        <div class="tp-desc">移动基站数量全国第一<br>随时随地高速上网</div>
+      </div>
+    </div>
+    <div class="trust-content">
+      <div class="trust-text">
+        全校网络基础设施（网线、路由器等设备）均由<b>中国移动独家承建与维护</b>。<br>
+        5G双域专网已开通，<b>无需VPN即可访问校内系统</b>，权威可查，放心办理！
+      </div>
+      <a class="trust-btn" href="https://www.swun.edu.cn/info/1081/50370.htm" target="_blank" rel="noopener">
+        🔗 查看学校官方公告
+      </a>
+      <div class="campus-info">
+        <span class="campus-chip">🏛️ 武侯校区</span>
+        <span class="campus-chip">✈️ 航空港校区</span>
+        <span class="campus-chip">🌳 太平园校区</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 学长背书 ===== -->
+  <section class="section senior-section fade-up">
+    <div class="section-head">
+      <div class="section-title"><span class="icon">👨‍🎓</span>学长靠谱推荐</div>
+      <div class="section-tag" style="background:#FEF2F2;color:#DC2626">真诚可靠</div>
+    </div>
+    <div class="senior-card">
+      <div class="senior-avatar">🧑‍💼</div>
+      <div class="senior-info">
+        <div class="senior-name">学长推荐<span class="verify">✓ 已认证</span></div>
+        <div class="senior-title">在校三年 · 深耕校园市场四年</div>
+      </div>
+    </div>
+    <div class="senior-desc">
+      💬 "大家好，我是你们的学长！在校三年，做校园卡推广已经四年啦～从新生入校一直陪伴到毕业，亲测好用，真诚靠谱不套路。办理过程有任何问题随时找我，售后全程跟进，保证给学弟学妹们最实在的福利和服务！"
+    </div>
+  </section>
+
+</div>
+
+<!-- ===== 底部固定CTA ===== -->
+<div class="cta-sticky">
+  <a href="javascript:void(0)" class="cta-service" id="btnConsult">
+    <span class="s-ico">💬</span>
+    <span>咨询学长</span>
+  </a>
+  <a href="javascript:void(0)" class="cta-main" id="btnApply">
+    🚀 联系学长办理 · 首月0元
+  </a>
+</div>
+
+<!-- ===== 微信二维码弹窗 ===== -->
+<div class="modal-mask" id="wxModal">
+  <div class="modal-card">
+    <button class="modal-close" id="modalClose" aria-label="关闭">✕</button>
+    <div class="modal-head">
+      <h3>💬 添加学长微信</h3>
+      <p>扫码或搜索微信号，即可<b>咨询/办理校园卡</b>，全程一对一服务～</p>
+    </div>
+    <div class="qr-wrap">
+      <!-- ⚠️ 用户请替换为真实的微信二维码图片，路径如: ./wx-qr.jpg 或 网络URL -->
+      <div class="qr-placeholder" id="qrPlaceholder">
+        <div class="wechat-icon">💚</div>
+        <div>请在此处放置您的<br><b>微信二维码图片</b></div>
+        <div style="font-size:10px;opacity:.7">（支持 wx-qr.png 或 wx-qr.jpg，放在同目录自动显示）</div>
+      </div>
+      <img id="qrImg" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="学长微信二维码" style="display:none">
+    </div>
+    <div class="wxid-row">
+      <span class="wx-label">微信号：</span>
+      <span class="wx-id" id="wxId">AIPacino_6</span>
+      <button class="wx-copy" id="wxCopy">复制</button>
+    </div>
+    <div class="modal-tip">
+      👉 <b>打开微信</b> → 扫一扫二维码 / 搜索微信号 <b>AIPacino_6</b> → <b>添加好友即可办理</b>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 底部版权 ===== -->
+<footer class="footer">
+  <div class="footer-support">
+    <b>信息来源：</b><a href="https://www.swun.edu.cn/info/1081/50370.htm" target="_blank" rel="noopener" style="color:var(--primary);text-decoration:underline">西南民族大学官网 · 5G专网服务公告</a>
+  </div>
+  <div class="footer-copy">
+    © 2026 Southwest Minzu University. All Rights Reserved.<br>
+    本页面所有套餐信息以中国移动实际办理为准
+  </div>
+</footer>
+
+<script>
+  // 涨价倒计时
+  const deadline = new Date('2026-08-21T23:59:59').getTime();
+  const cdBox = document.getElementById('feeCountdown');
+  function updateCountdown(){
+    const now = Date.now();
+    const diff = deadline - now;
+    if(diff <= 0){
+      cdBox.classList.add('expired');
+      clearInterval(cdTimer);
+      return;
+    }
+    const d = Math.floor(diff/86400000);
+    const h = Math.floor(diff%86400000/3600000);
+    const m = Math.floor(diff%3600000/60000);
+    const s = Math.floor(diff%60000/1000);
+    document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+    document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+    document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+    document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+  }
+  updateCountdown();
+  const cdTimer = setInterval(updateCountdown, 1000);
+
+  // 滚动入场动画
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  },{threshold:0.12});
+  document.querySelectorAll('.fade-up').forEach(el=>observer.observe(el));
+
+  // 校区Tab切换
+  document.querySelectorAll('.tab-btn').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      const tab = btn.dataset.tab;
+      document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+      document.getElementById('panel-'+tab).classList.add('active');
+    });
+  });
+
+  // 定向流量APP折叠展开
+  const appsToggle = document.getElementById('appsToggle');
+  const appsContent = document.getElementById('appsContent');
+  appsToggle.addEventListener('click',()=>{
+    appsToggle.classList.toggle('open');
+    appsContent.classList.toggle('open');
+  });
+
+  // 按钮点击反馈
+  document.addEventListener('click',(e)=>{
+    const t = e.target.closest('a,button,.benefit-item,.sp-card,.welfare-card');
+    if(!t) return;
+    if(!t.dataset.ripple){
+      t.dataset.ripple='1';
+      t.style.transition='transform .15s ease';
+    }
+  });
+
+  // ===== 微信二维码弹窗 =====
+  (function(){
+    const mask = document.getElementById('wxModal');
+    const qrImg = document.getElementById('qrImg');
+    const closeBtn = document.getElementById('modalClose');
+    const copyBtn = document.getElementById('wxCopy');
+    const wxIdEl = document.getElementById('wxId');
+    const wxId = wxIdEl.textContent.trim();
+
+    // 加载真实微信二维码：先 wx-qr.png 失败回退 wx-qr.jpg 两者都失败才显示占位
+    let retryJpg = false;
+    qrImg.onload = function(){
+      if(this.src.indexOf('data:image/gif;base64') === -1){
+        this.style.display = 'block';
+        document.getElementById('qrPlaceholder').style.display = 'none';
+      }
+    };
+    qrImg.onerror = function(){
+      if(!retryJpg){
+        retryJpg = true;
+        this.src = './wx-qr.jpg'; // png失败回退jpg
+      } else {
+        this.style.display = 'none';
+        document.getElementById('qrPlaceholder').style.display = 'flex';
+      }
+    };
+    qrImg.src = './wx-qr.png';
+
+    function openModal(){
+      mask.classList.add('show');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){
+      mask.classList.remove('show');
+      document.body.style.overflow = '';
+    }
+
+    document.getElementById('btnConsult').addEventListener('click', openModal);
+    document.getElementById('btnApply').addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    mask.addEventListener('click', function(e){
+      if(e.target === mask) closeModal();
+    });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && mask.classList.contains('show')) closeModal();
+    });
+
+    // 复制微信号
+    copyBtn.addEventListener('click', async function(){
+      try{
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          await navigator.clipboard.writeText(wxId);
+        } else {
+          const ta = document.createElement('textarea');
+          ta.value = wxId;
+          ta.style.position = 'fixed';
+          ta.style.opacity = '0';
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+        }
+        const origin = copyBtn.textContent;
+        copyBtn.textContent = '已复制✓';
+        copyBtn.classList.add('copied');
+        setTimeout(() => {
+          copyBtn.textContent = origin;
+          copyBtn.classList.remove('copied');
+        }, 2000);
+      }catch(err){
+        copyBtn.textContent = '复制失败';
+        setTimeout(() => copyBtn.textContent = '复制', 1500);
+      }
+    });
+  })();
+</script>
+
+</body>
+</html>
